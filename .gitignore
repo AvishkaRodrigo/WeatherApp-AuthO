@@ -102,3 +102,10 @@ dist
 
 # TernJS port file
 .tern-port
+
+#Documents
+task.pdf
+
+#nodeModules
+/backend/node_modules
+/frontend/node_modules
