@@ -1,5 +1,93 @@
 <%- include('partials/header'); -%>
+<%- include('navbar'); -%>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 m-1 m-md-3 m-lg-4 px-5">
+    
+    <% for (var i in Data) {    %>
+        
+    
+        <div class="col px-2">
+        <div class="card card-item theme-dark">
+            <div class="anime">
+                <img src="https://openweathermap.org/img/w/<%= Data[i][4] %>.png" class="card-img-top">
+                <!-- <img src="/Icon/clear-day.svg" class="card-img-top"> -->
+            </div>
+            <div class="card-body">
+                <div class="info d-flex justify-content-around">
+                    <div class="temp">
+                        <h2 class="temp d-flex justify-content-end me-3 display-6"><%= Data[i][2] %></h2>
+                    </div>
+                    <div class="status pt-1 pt-md-2 pt-lg-3">
+                        <p class="card-text"><%= Data[i][3]%></p>
+                    </div>
+                </div>
+                <hr>
+                <h5 class="card-title d-flex justify-content-center"><ion-icon name="location" class="mx-1"></ion-icon ><%= Data[i][1]%></h5>
+            </div>
+            
+        </div>
+        </div>
 
-<h1>adfad</h1>
-
+    <%  }   %>
+<!--     
+    <div class="col px-2">
+      <div class="card card-item theme-dark">
+        <div class="anime">
+            <img src="/Icon/rain.svg" class="card-img-top">
+        </div>
+        <div class="card-body">
+            <div class="info d-flex justify-content-around">
+                <div class="temp">
+                    <h2 class="temp d-flex justify-content-end me-3 display-6">Temp</h2>
+                </div>
+                <div class="status pt-1 pt-md-2 pt-lg-3">
+                    <p class="card-text">Description</p>
+                </div>
+            </div>
+            <hr>
+            <h5 class="card-title d-flex justify-content-center"><ion-icon name="location" class="mx-1"></ion-icon >City</h5>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col px-2">
+      <div class="card card-item theme-dark">
+        <div class="anime">
+            <img src="/Icon/mist.svg" class="card-img-top">
+        </div>
+        <div class="card-body">
+            <div class="info d-flex justify-content-around">
+                <div class="temp">
+                    <h2 class="temp d-flex justify-content-end me-3 display-6">Temp</h2>
+                </div>
+                <div class="status pt-1 pt-md-2 pt-lg-3">
+                    <p class="card-text">Description</p>
+                </div>
+            </div>
+            <hr>
+            <h5 class="card-title d-flex justify-content-center"><ion-icon name="location" class="mx-1"></ion-icon >City</h5>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col px-2">
+      <div class="card card-item theme-dark">
+        <div class="anime">
+            <img src="/Icon/overcast-day.svg" class="card-img-top">
+        </div>
+        <div class="card-body">
+            <div class="info d-flex justify-content-around">
+                <div class="temp">
+                    <h2 class="temp d-flex justify-content-end me-3 display-6">Temp</h2>
+                </div>
+                <div class="status pt-1 pt-md-2 pt-lg-3">
+                    <p class="card-text">Description</p>
+                </div>
+            </div>
+            <hr>
+            <h5 class="card-title d-flex justify-content-center"><ion-icon name="location" class="mx-1"></ion-icon >City</h5>
+        </div>
+      </div>
+    </div> -->
+    
+</div>
 <%- include('partials/footer'); -%>
