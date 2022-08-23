@@ -1,11 +1,15 @@
 const express = require('express');
+// const fetch = require('node-fetch');
 const router = require('express').Router;
 const request = require('request');
+const userRequest = require('./data/cities.json');
+const sessionStorage = require('sessionstorage');
+const NodeCache = require('node-cache');
+const { response } = require('express');
 require('dotenv').config()
-const userRequest = require('./data/cities.json')
 
 const app = express();
-const port = process.env.PORT;
+const Localcache = new NodeCache({stdTTL:300});
 
 app.locals.themeToggle = () => {
     var themeToggle = document.getElementById('theme');
@@ -35,21 +39,33 @@ var weatherData;
 var Data;
 app.get('/', (req,res) => {
     var url = `http://api.openweathermap.org/data/2.5/group?id=${cityCodes}&units=metric&appid=${process.env.API_KEY}`;
-    request(url, function(err, response, body){
-        if(err){
-            res.render('dashboard', { weather: null, error: 'Error, please try again' });
-            // ! enter code here
-        }else{
-            weatherData = JSON.parse(body);
-            getData(weatherData);
-            // console.log(getData(weatherData));
-        }
-        Data = getData(weatherData);
-        // console.log(Data);
-        res.render('dashboard', {Data});
-    })
+    if (Localcache.has('weatherdata')){
+        var Data = getData(weatherData);
+        // console.log(Data)
+        console.log('taken from cache')
+        return res.render('dashboard',{Data})
+    }else {
+        request(url, function(err, response, body){
+            if(err){
+                res.render('dashboard', { weather: null, error: 'Error, please try again' });
+                // ! enter code here
+            }else{
+                weatherData = JSON.parse(body);
+                // getData(weatherData);
+                // console.log(getData(weatherData));
+                // sessionStorage.setItem('weatherAPIdata','Data');
+            }
+            Data = getData(weatherData);
+            // console.log(sessionStorage.getItem('weatherAPIdata'));
+            // console.log(Data);
+            
+            Localcache.set('weatherdata',Data);
+            console.log('taken from API')
+            // console.log(typeof weatherData)
+            res.render('dashboard', {Data});
+        })
+    }
 });
-
 
 const getData = (responseData) => {
     var data = JSON.parse(JSON.stringify(responseData.list));
@@ -59,4 +75,4 @@ const getData = (responseData) => {
     return result;
 } 
 
-app.listen(port, () => console.info('App is listing on port!'));
+app.listen(process.env.PORT, () => console.info('App is listing on port!'));
